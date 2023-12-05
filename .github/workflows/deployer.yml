@@ -17,7 +17,7 @@ jobs:
         uses: google-github-actions/deploy-cloud-functions@v0.1.2
         with:
           credentials: ${{ secrets.GCP_SA_KEY }}
-          name: python-hello-world-cf1
+          name: python-hello-world-cf2
           description: Test python cloud function # nullable
           project_id: ${{ secrets.GCP_PROJECT_ID }}
           region: us-central1
