@@ -1,36 +1,32 @@
-name: Deployment
-
-# on commit push, run job
-on: [ push ]
-
+name: Deploy Cloud Functions
+on:
+  push:
+    branches:
+      - main
 jobs:
-  run:
-    # worker runs on latest ubuntu
+  deploy:
     runs-on: ubuntu-latest
-
     steps:
-      # checkout to our repository so we have access to the source code
-      - uses: actions/checkout@v2
-
-      # the actual deployment to google
-      - name: Cloud Functions Deploy
-        uses: google-github-actions/deploy-cloud-functions@v0.1.2
+      - uses: actions/checkout@v3
+      - run: ls
+      - id: 'auth'
+        name: 'Authenticate to Google Cloud'
+        uses: 'google-github-actions/auth@v1'
         with:
-          service_account_email: employee-finder-407218@appspot.gserviceaccount.com
-          credentials: ${{ secrets.GCP_SA_KEY }}
-          name: python-hello-world-cf3
-          description: Test python cloud function # nullable
-          project_id: ${{ secrets.GCP_PROJECT_ID }}
-          region: us-central1
-          source_dir: src
-          # name of our function in our main.py file, defaults to the resource name suffix 
-          entry_point: hello_world
-          # runtime to use for the function
-          runtime: python39
-          # the function execution timeout
-          timeout: 60
-          # the maximum number of instances for the function.
-          max_instances: 1
-          # optional configs, see google-cloud-actions/deploy-cloud-functions for full reference
-          # list of key-value pairs to set as environment variables in the form KEY1=VALUE1,KEY2=VALUE2.
-#       env_vars: # optional
+          credentials_json: '${{ secrets.GCP_SA_KEY }}'
+      - name: 'Set up Cloud SDK'
+        uses: 'google-github-actions/setup-gcloud@v1'
+        with:
+          version: '>= 363.0.0'
+      - name: 'Use gcloud CLI'
+        run: 'gcloud info'
+      - name: 'Deploy to gen2 cloud function'
+        run:  |
+          gcloud functions deploy gcloud-cloud-function \
+          --gen2 \
+          --region=us-central1 \
+          --runtime=python310 \
+          --source=src \
+          --entry-point=<hello_world \
+          --trigger-http \
+          --project='${{ secrets.GCP_PROJECT_ID }}'
