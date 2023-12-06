@@ -27,6 +27,6 @@ jobs:
           --region=us-central1 \
           --runtime=python310 \
           --source=src \
-          --entry-point=<hello_world \
+          --entry-point=hello_world \
           --trigger-http \
           --project='${{ secrets.GCP_PROJECT_ID }}'
