@@ -30,4 +30,5 @@ jobs:
           --entry-point=hello_world \
           --trigger-http \
           --project='${{ secrets.GCP_PROJECT_ID }}' \
-          --service-account=employee-finder-407218@appspot.gserviceaccount.com
+          --service-account=github-deployer@employee-finder-407218.iam.gserviceaccount.com \
+          -allow-unauthenticated
