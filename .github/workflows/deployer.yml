@@ -25,10 +25,6 @@ jobs:
         gcloud auth login --brief --cred-file="${{ steps.auth.outputs.credentials_file_path }}"
         gcloud services list --project employee-finder-407218
     - uses: actions/checkout@v2
-    - id: 'list_files'
-      name: 'list_files'
-      run: |-
-        ls -lrt
     - id: 'deploy'
       uses: 'google-github-actions/deploy-cloud-functions@v1'
       with:
@@ -36,4 +32,3 @@ jobs:
         runtime: 'python312'
         entry_point: hello_world
         project_id: 'employee-finder-407218'
-        source_dir: src
