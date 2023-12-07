@@ -17,7 +17,7 @@ jobs:
       uses: 'google-github-actions/auth@v0.3.1'
       with:
           create_credentials_file: 'true'
-          workload_identity_provider: 'projects/104429179211/locations/global/workloadIdentityPools/git-action-pool/providers/git-action-provider'
+          workload_identity_provider: 'projects/104429179211/locations/global/workloadIdentityPools/githubactions-workload-pool/providers/githubactions-workload-provider'
           service_account: 'employee-finder-407218@appspot.gserviceaccount.com'
     - id: 'gcloud'
       name: 'gcloud'
