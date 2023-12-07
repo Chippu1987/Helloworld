@@ -38,7 +38,9 @@ jobs:
     
     - id: 'Run-python-test'
       name : 'Run unit test case'
-      run : python3 -m pytest test.py
+      run : |-
+        python3 -m pytest test.py
+        python3 test.py
 
     - id: 'deploy'
       name: 'Deploy the Python Source Code to GCP Cloud Fucntion'
