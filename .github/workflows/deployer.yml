@@ -9,7 +9,7 @@ permissions:
   id-token: write
 
 jobs:
-  Get_OIDC_ID_token:
+  Deploy_to_Cloud_Function:
     runs-on: ubuntu-latest
     steps:
     - id: 'auth'
@@ -31,3 +31,4 @@ jobs:
         runtime: 'python312'
         entry_point: hello_world
         project_id: 'employee-finder-407218'
+        source_dir: './src'
