@@ -30,3 +30,4 @@ jobs:
         name: 'glcoud-wif-cloud-function'
         runtime: 'python312'
         entry_point: hello_world
+        project_id: 'employee-finder-407218'
