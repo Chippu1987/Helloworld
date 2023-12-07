@@ -46,3 +46,7 @@ jobs:
         --member="allUsers" \
         --role="roles/cloudfunctions.invoker" \
         --project ${{ secrets.GCP_PROJECT_ID }}
+    - id: 'Test_Cloud_Function_Endpoint'
+      name: 'Test the Cloud Function endpoint'
+      run: |-
+        curl https://us-central1-employee-finder-407218.cloudfunctions.net/glcoud-wif-cloud-function
