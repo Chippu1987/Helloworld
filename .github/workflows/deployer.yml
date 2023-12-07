@@ -30,6 +30,16 @@ jobs:
       name: 'Checkout the Source Code'
       uses: actions/checkout@v2
 
+    - id: 'Install-python-package'
+      name : 'Install Packages'
+      run : |-
+        sudo apt install python3
+        python3 -m pip install pytest
+    
+    - id: 'Run-python-test'
+      name : 'Run unit test case'
+      run : python3 -m pytest test.py
+
     - id: 'deploy'
       name: 'Deploy the Python Source Code to GCP Cloud Fucntion'
       uses: 'google-github-actions/deploy-cloud-functions@v1'
