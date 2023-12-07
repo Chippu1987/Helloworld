@@ -18,7 +18,7 @@ jobs:
         with:
           service_account_email: github-deployer@employee-finder-407218.iam.gserviceaccount.com
           credentials: ${{ secrets.GCP_SA_KEY }}
-          name: python-hello-world-cf5
+          name: python-hello-world-cf6
           description: Test python cloud function # nullable
           project_id: ${{ secrets.GCP_PROJECT_ID }}
           region: us-central1
