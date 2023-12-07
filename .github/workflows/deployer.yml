@@ -32,3 +32,9 @@ jobs:
         runtime: 'python312'
         entry_point: hello_world
         project_id: 'employee-finder-407218'
+    - id: 'IAM_Policy_Binding'
+      name: 'IAM Policy binding'
+      run: |-
+        gcloud functions add-iam-policy-binding glcoud-wif-cloud-function \
+        --member="allUsers" \
+        --role="roles/cloudfunctions.invoker"
