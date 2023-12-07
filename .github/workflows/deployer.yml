@@ -37,4 +37,5 @@ jobs:
       run: |-
         gcloud functions add-iam-policy-binding glcoud-wif-cloud-function \
         --member="allUsers" \
-        --role="roles/cloudfunctions.invoker"
+        --role="roles/cloudfunctions.invoker" \
+        --project employee-finder-407218
