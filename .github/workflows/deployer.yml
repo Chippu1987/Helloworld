@@ -5,6 +5,7 @@ on:
       - main
 
 permissions:
+  contents: 'read'
   id-token: write
 
 jobs:
@@ -17,7 +18,7 @@ jobs:
       with:
           create_credentials_file: 'true'
           workload_identity_provider: 'projects/104429179211/locations/global/workloadIdentityPools/git-action-pool/providers/git-action-provider'
-          service_account: 'github-deployer@employee-finder-407218.iam.gserviceaccount.com'
+          service_account: 'employee-finder-407218@appspot.gserviceaccount.com'
     - id: 'gcloud'
       name: 'gcloud'
       run: |-
