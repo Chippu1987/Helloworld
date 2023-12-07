@@ -9,7 +9,7 @@ permissions:
   id-token: write
 
 jobs:
-  Deploy_to_Cloud_Function:
+  GithubAction-Cloud_Function-Depployment:
     runs-on: ubuntu-latest
     steps:
     - id: 'auth'
@@ -17,29 +17,30 @@ jobs:
       uses: 'google-github-actions/auth@v0.3.1'
       with:
           create_credentials_file: 'true'
-          workload_identity_provider: 'projects/104429179211/locations/global/workloadIdentityPools/githubactions-workload-pool/providers/githubactions-workload-provider'
-          service_account: 'employee-finder-407218@appspot.gserviceaccount.com'
+          workload_identity_provider: ${{ secrets.WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ secrets.SERVICE_ACCOUNT }}
 
     - id: 'gcloud'
-      name: 'gcloud'
+      name: 'List the Services Enabled in the Project'
       run: |-
         gcloud auth login --brief --cred-file="${{ steps.auth.outputs.credentials_file_path }}"
         gcloud services list --project ${{ secrets.GCP_PROJECT_ID }}
 
-    - id: 'git-checkout'
+    - id: 'GIT-Checkout'
+      name: 'Checkout the Source Code'
       uses: actions/checkout@v2
 
     - id: 'deploy'
+      name: 'deploy the pyhton source code to GCP Cloud Fucntion'
       uses: 'google-github-actions/deploy-cloud-functions@v1'
       with:
         name: 'glcoud-wif-cloud-function'
         runtime: 'python312'
         entry_point: hello_world
-        #project_id: 'employee-finder-407218'
         project_id: ${{ secrets.GCP_PROJECT_ID }}
 
     - id: 'IAM_Policy_Binding'
-      name: 'IAM Policy binding'
+      name: 'Set IAM Policy binding to all allow unauthenticated user access'
       run: |-
         gcloud functions add-iam-policy-binding glcoud-wif-cloud-function \
         --member="allUsers" \
