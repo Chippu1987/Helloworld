@@ -24,6 +24,7 @@ jobs:
       run: |-
         gcloud auth login --brief --cred-file="${{ steps.auth.outputs.credentials_file_path }}"
         gcloud services list --project employee-finder-407218
+        ls -lrt
     - id: 'deploy'
       uses: 'google-github-actions/deploy-cloud-functions@v1'
       with:
