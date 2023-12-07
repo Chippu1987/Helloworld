@@ -1,6 +1,8 @@
-name: List services in GCP
+name: Deploy Cloud Functions
 on:
-  workflow_dispatch:
+  push:
+    branches:
+      - main
 
 permissions:
   id-token: write
