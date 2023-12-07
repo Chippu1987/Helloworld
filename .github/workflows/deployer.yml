@@ -16,10 +16,10 @@ jobs:
       uses: 'google-github-actions/auth@v0.3.1'
       with:
           create_credentials_file: 'true'
-          workload_identity_provider: 'projects/104429179211/locations/global/workloadIdentityPools/github-actions-pool/providers/github-action-provider'
+          workload_identity_provider: 'projects/104429179211/locations/global/workloadIdentityPools/git-action-pool/providers/git-action-provider'
           service_account: 'github-deployer@employee-finder-407218.iam.gserviceaccount.com'
     - id: 'gcloud'
       name: 'gcloud'
       run: |-
         gcloud auth login --brief --cred-file="${{ steps.auth.outputs.credentials_file_path }}"
-        gcloud services list --project cloudquicklab
+        gcloud services list --project employee-finder-407218
