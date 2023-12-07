@@ -31,7 +31,7 @@ jobs:
       uses: actions/checkout@v2
 
     - id: 'deploy'
-      name: 'deploy the pyhton source code to GCP Cloud Fucntion'
+      name: 'Deploy the python source code to GCP Cloud Fucntion'
       uses: 'google-github-actions/deploy-cloud-functions@v1'
       with:
         name: 'glcoud-wif-cloud-function'
@@ -39,7 +39,7 @@ jobs:
         entry_point: hello_world
         project_id: ${{ secrets.GCP_PROJECT_ID }}
 
-    - id: 'IAM_Policy_Binding'
+    - id: 'Set_IAM_Policy_Binding'
       name: 'Set IAM Policy binding to all allow unauthenticated user access'
       run: |-
         gcloud functions add-iam-policy-binding glcoud-wif-cloud-function \
