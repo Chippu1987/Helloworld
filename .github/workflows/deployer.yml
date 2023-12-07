@@ -35,8 +35,8 @@ jobs:
       run : |-
         sudo apt install python3
     
-    - id: 'Run-python-test'
-      name : 'Run unit test case'
+    - id: 'run-python-test'
+      name : 'Executing Unit Test Cases'
       run : |-
         python3 test.py
 
