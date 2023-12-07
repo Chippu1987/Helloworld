@@ -1,36 +1,23 @@
-name: Deployment
+name: List services in GCP
+on:
+  workflow_dispatch:
 
-# on commit push, run job
-on: [ push ]
+permissions:
+  id-token: write
 
 jobs:
-  run:
-    # worker runs on latest ubuntu
+  Get_OIDC_ID_token:
     runs-on: ubuntu-latest
-
     steps:
-      # checkout to our repository so we have access to the source code
-      - uses: actions/checkout@v2
-
-      # the actual deployment to google
-      - name: Cloud Functions Deploy
-        uses: google-github-actions/deploy-cloud-functions@v0.1.2
-        with:
-          service_account_email: github-deployer@employee-finder-407218.iam.gserviceaccount.com
-          credentials: ${{ secrets.GCP_SA_KEY }}
-          name: python-hello-world-cf6
-          description: Test python cloud function # nullable
-          project_id: ${{ secrets.GCP_PROJECT_ID }}
-          region: us-central1
-          source_dir: src
-          # name of our function in our main.py file, defaults to the resource name suffix 
-          entry_point: hello_world
-          # runtime to use for the function
-          runtime: python310
-          # the function execution timeout
-          timeout: 60
-          # the maximum number of instances for the function.
-          max_instances: 1
-          # optional configs, see google-cloud-actions/deploy-cloud-functions for full reference
-          # list of key-value pairs to set as environment variables in the form KEY1=VALUE1,KEY2=VALUE2.
-#       env_vars: # optional
+    - id: 'auth'
+      name: 'Authenticate to GCP'
+      uses: 'google-github-actions/auth@v0.3.1'
+      with:
+          create_credentials_file: 'true'
+          workload_identity_provider: 'projects/104429179211/locations/global/workloadIdentityPools/github-actions-pool/providers/github-action-provider'
+          service_account: 'github-deployer@employee-finder-407218.iam.gserviceaccount.com'
+    - id: 'gcloud'
+      name: 'gcloud'
+      run: |-
+        gcloud auth login --brief --cred-file="${{ steps.auth.outputs.credentials_file_path }}"
+        gcloud services list --project cloudquicklab
