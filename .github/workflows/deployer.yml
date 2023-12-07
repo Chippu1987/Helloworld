@@ -29,4 +29,5 @@ jobs:
       with:
         name: 'glcoud-wif-cloud-function'
         runtime: 'python312'
-        source_dir: 'src'
+        source_dir: src
+        entry_point: hello_world
