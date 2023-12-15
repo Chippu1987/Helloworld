@@ -6,4 +6,4 @@ def hello_world(request):
         The response text, or any set of values that can be turned into a
         Response object using `make_response`
     """
-    return "Hello World - Github Actions!"
+    return "Hello DevX - Github Actions!"
